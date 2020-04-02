@@ -1,0 +1,53 @@
+<!DOCTYPE html> 
+{% load static %}
+<html> 
+  <head> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title> 
+      Registration
+    </title> 
+  </head> 
+  
+  <body style="text-align:center;" id="body"> 
+    <h1 style="color:green;"> 
+      Գրանցում 
+    </h1> 
+  
+    <form id="new_user_form">{%csrf_token%}
+        <!-- Making a text input -->
+        <input type="text" id="Ազգանուն" placeholder="Զինծառայողի անունը">
+        <br/><br/>
+        <input type="text" id="Անուն" placeholder="Զինծառայողի ազգանունը"><br/><br/> 
+        <input type="text" id="Հայրանուն" placeholder="Զինծառայողի հայրանունը"> <br/><br/>
+        
+        <!-- Button to send data -->
+        <input type="submit" value="SUMBIT"> 
+        
+        <!-- For printing result from server -->
+        <!-- <p class="result" style="color:green"></p>  -->
+        
+      </form> 
+    </body>
+    <!-- <script type="text/javascript" src="{% static '../../../material.js' %}"></script> -->
+    <!-- <script type="text/javascript" src="{% static '../../../jquery.min.js' %}"></script>  -->
+    <script  type="text/javascript"> 
+    $(document).on('sumbit', '#new_user_form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'http://127.0.0.1:8000/Grancum/created/',
+            data:{
+                Ազգանուն:$('#Ազգանուն').val(),
+                Հայրանուն:$('#Հայրանուն').val(),
+                Անուն:$('#Անուն').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            }
+            // success:function(){
+            //     alert('created');
+            // }
+
+        })
+    });
+  </script>
+   <link rel="stylesheet" type="text/css" href="{% static 'css/Grancum.css'%}"> 
+</html> 
